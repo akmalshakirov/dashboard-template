@@ -5,7 +5,7 @@ export const Login = () => {
                 <h2 className='md:text-5xl text-2xl font-bold text-center mb-5 md:tracking-widest'>
                     Login
                 </h2>
-                <form className='bg-[#313131] p-5 md:p-10 rounded-lg inset-shadow-[0px_1px_20px_0] inset-shadow-white/3 md:space-y-6 space-y-4'>
+                <form className='bg-[#313131] p-5 md:p-10 rounded-lg inset-shadow-[0px_1px_20px_0] inset-shadow-white/3 md:space-y-6 space-y-4 flex flex-col'>
                     <label className='flex flex-col md:flex-row md:gap-5 justify-center items-center md:text-lg text-base'>
                         Username:
                         <input
@@ -35,7 +35,9 @@ export const Login = () => {
                             Show
                         </span>
                     </label>
-                    <button className='button'>Submit</button>
+                    <button className='button border p-2 rounded-lg active:bg-[#444] active:translate-y-0.5'>
+                        Submit
+                    </button>
                 </form>
             </div>
         </div>
