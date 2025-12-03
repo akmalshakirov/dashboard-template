@@ -1,4 +1,5 @@
-import { useState, type ChangeEvent } from "react";
+import axios from "axios";
+import { useState, type ChangeEvent, type FormEvent } from "react";
 
 export const Login = () => {
     const [showPass, setShowPass] = useState<boolean>(false);
@@ -6,12 +7,18 @@ export const Login = () => {
     const [password, setPassword] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e: FormEvent) => {
         setLoading(true);
+        e.preventDefault();
         try {
-            confirm(`Username: ${username} \nPassword: ${password}`);
-        } catch (error) {}
-        setLoading(false);
+            const { data } = await axios.post("http://localhost:5000/post", {
+                username,
+                password,
+            });
+            console.log(data);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
