@@ -1,3 +1,3 @@
 export const Sidebar = () => {
-    return <aside>Sidebar comp</aside>;
+    return <aside className=''>Sidebar comp</aside>;
 };

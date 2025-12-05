@@ -21,6 +21,7 @@ export const Login = () => {
 
             if (status === 200) {
                 navigate("/");
+                localStorage.setItem("isLogined", "true");
             }
             setError("");
         } catch (error: any) {
