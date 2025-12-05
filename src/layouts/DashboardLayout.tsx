@@ -1,11 +1,5 @@
-import { Header } from "../components/header";
-import { Sidebar } from "../components/sidebar";
+import { Dashboard } from "../pages/DashboardHome";
 
 export const DashboardLayout = () => {
-    return (
-        <>
-            <Sidebar />
-            <Header />
-        </>
-    );
+    return <Dashboard />;
 };
