@@ -16,9 +16,9 @@ function App() {
     // }, [isAdmin, isLogined]);
 
     useEffect(() => {
-        const isLogined = localStorage.getItem("isLogined");
+        const isLogined = localStorage.getItem("isLogined") == "true";
         if (!isLogined) {
-            navigate("/login");
+            navigate("/login", { replace: true });
         }
     }, []);
 

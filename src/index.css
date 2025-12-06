@@ -25,6 +25,10 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+@theme {
+    --color-secondary: #222;
+}
+
 a {
     text-decoration: none;
     color: inherit;

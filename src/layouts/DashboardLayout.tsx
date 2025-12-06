@@ -1,15 +1,19 @@
 import { Outlet } from "react-router-dom";
-// import { Header } from "../components/header";
-// import { Sidebar } from "../components/sidebar";
+import { Footer } from "../components/ui/footer";
+import { Header } from "../components/ui/header";
+import { Sidebar } from "../components/ui/sidebar";
 
 export const DashboardLayout = () => {
     return (
-        <div className='flex justify-center flex-col'>
-            {/* <Sidebar />
-            <Header /> */}
-            <main>
-                <Outlet />
-            </main>
+        <div className='min-h-screen flex bg-neutral-950'>
+            <Sidebar />
+            <div className='flex flex-col w-full p-3'>
+                <Header />
+                <main className='p-5 rounded-lg mt-3 bg-secondary my-20'>
+                    <Outlet />
+                </main>
+                <Footer />
+            </div>
         </div>
     );
 };
