@@ -2,9 +2,10 @@ import { useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 // import { useAdmin } from "./hooks/adminContext";
 import { DashboardLayout } from "./layouts/DashboardLayout";
+import { AdminDetail } from "./pages/AdminDetail";
+import { CreateAdmin } from "./pages/CreateAdmin";
 import { Dashboard } from "./pages/DashboardHome";
 import { Login } from "./pages/login";
-import { AdminDetail } from "./pages/AdminDetail";
 
 function App() {
     // const { isAdmin, isLogined } = useAdmin();
@@ -41,6 +42,14 @@ function App() {
                 element={
                     <DashboardLayout>
                         <AdminDetail />
+                    </DashboardLayout>
+                }
+            />
+            <Route
+                path='create-admin'
+                element={
+                    <DashboardLayout>
+                        <CreateAdmin />
                     </DashboardLayout>
                 }
             />

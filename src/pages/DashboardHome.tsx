@@ -2,11 +2,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-type adminProps = {
+export type AdminProps = {
     id?: number;
     username?: string;
     role?: string;
     name?: string;
+    password?: string;
 };
 
 export const Dashboard = () => {
@@ -38,12 +39,20 @@ export const Dashboard = () => {
     if (loading) {
         return <>Loading...</>;
     } else if (admins.length === 0) {
-        return error;
+        return <pre>{error}</pre>;
     }
 
     return (
         <>
-            <table className='rounded-lg min-w-full overflow-x-scroll lg:overflow-auto'>
+            <div className='flex items-center justify-between mb-5'>
+                <h1 className='text-2xl font-bold'>Admins</h1>
+                <button
+                    className='filled-gray-btn'
+                    onClick={() => navigate("/create-admin")}>
+                    Create admin
+                </button>
+            </div>
+            <table className='rounded-lg min-w-full overflow-x-scroll overflow-auto'>
                 <thead className='bg-white/20'>
                     <tr>
                         <th className='px-4 py-3 text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300 text-center'>
@@ -55,11 +64,13 @@ export const Dashboard = () => {
                             { col: "Name" },
                             { col: "Role" },
                             { col: "Action" },
-                        ].map((col) => {
+                        ].map((col, index) => {
                             return (
                                 <td
                                     key={Math.random() * 10}
-                                    className={`px-4 py-3 text-center text-sm text-gray-200`}>
+                                    className={`px-4 py-3 text-center text-gray-200 ${
+                                        index === 3 && "text-end"
+                                    }`}>
                                     {col.col}
                                 </td>
                             );
@@ -68,23 +79,23 @@ export const Dashboard = () => {
                 </thead>
 
                 <tbody className='divide-y divide-gray-400'>
-                    {admins.map((a: adminProps, index) => (
+                    {admins.map((a: AdminProps, index) => (
                         <tr
                             key={a.id}
                             className='hover:bg-gray-50 dark:hover:bg-secondary duration-150'>
-                            <td className='px-4 py-3 text-center text-sm text-gray-200'>
+                            <td className='px-4 py-3 text-center text-gray-200'>
                                 {index + 1}
                             </td>
-                            <td className='px-4 py-3 text-center text-sm text-gray-200'>
+                            <td className='px-4 py-3 text-center text-gray-200'>
                                 {a.username}
                             </td>
-                            <td className='px-4 py-3 text-center text-sm text-gray-200'>
+                            <td className='px-4 py-3 text-center text-gray-200'>
                                 {a.name}
                             </td>
-                            <td className='px-4 py-3 text-center text-sm text-gray-200'>
+                            <td className='px-4 py-3 text-center text-gray-200'>
                                 {a.role}
                             </td>
-                            <td className='px-4 py-3 text-center text-sm text-gray-200 flex items-center justify-center gap-3'>
+                            <td className='px-4 py-3 text-center text-gray-200 flex items-center justify-end gap-3'>
                                 <button
                                     className='border border-gray-400/30 rounded-lg p-2 hover:bg-[#333] hover:border-gray-400/50 transition cursor-pointer active:translate-y-1 duration-100'
                                     onClick={() => navigate(`/admin/${a.id}`)}>

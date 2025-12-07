@@ -7,7 +7,7 @@ type HeaderProps = {
 export const Header = ({ title }: HeaderProps) => {
     const query = useLocation();
     if (!query) return;
-    if (query.pathname.includes("/admin")) {
+    if (query.pathname.startsWith("/admin/")) {
         title = "Admin's Detail";
     } else {
         title = "Dashboard";

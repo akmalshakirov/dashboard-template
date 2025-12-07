@@ -1,19 +1,12 @@
 import axios from "axios";
 import { useEffect, useState, type FormEvent } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-
-type AdminProps = {
-    id?: string;
-    username: string;
-    name: string;
-    role: string;
-    password: string;
-};
+import type { AdminProps } from "./DashboardHome";
 
 export const AdminDetail = () => {
     const { id } = useParams();
     const [adminData, setAdminData] = useState<AdminProps>({
-        id: id,
+        id: Number(id),
         username: "loading",
         name: "loading",
         role: "loading",
