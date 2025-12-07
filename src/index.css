@@ -52,4 +52,13 @@ body {
     .input {
         @apply border border-gray-500 p-2 rounded-lg outline-none transition focus:ring-2 focus:ring-blue-500 focus:border-transparent;
     }
+    .btn {
+        @apply border border-gray-400/30 rounded-lg p-2 hover:bg-[#333] hover:border-gray-400/50 transition cursor-pointer active:translate-y-1 duration-100;
+    }
+    .filled-btn {
+        @apply bg-blue-700 border border-gray-400/30 rounded-lg p-2 hover:bg-blue-600 hover:border-gray-400/50 transition cursor-pointer active:translate-y-1;
+    }
+    .filled-gray-btn {
+        @apply bg-[#333] border border-gray-400/30 rounded-lg p-2 hover:bg-[#444] hover:border-gray-400/50 transition cursor-pointer active:translate-y-1;
+    }
 }

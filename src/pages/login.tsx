@@ -36,7 +36,7 @@ export const Login = () => {
     };
 
     return (
-        <div className='flex items-center justify-center min-h-screen bg-[#222]'>
+        <div className='flex items-center justify-center min-h-screen bg-secondary'>
             <div>
                 <h2 className='md:text-5xl text-2xl font-bold text-center mb-5 md:tracking-widest'>
                     Login
