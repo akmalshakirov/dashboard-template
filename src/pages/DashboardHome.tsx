@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Modal } from "../components/modal/Modal";
 
 export type AdminProps = {
     id?: number;
@@ -14,6 +15,7 @@ export const Dashboard = () => {
     const [loading, setLoading] = useState<boolean>(true);
     const [admins, setAdmins] = useState([]);
     const [error, setError] = useState<string>("");
+    const [modal, setModal] = useState<boolean>(false);
     const navigate = useNavigate();
 
     const fetchAdmins = async () => {
@@ -22,6 +24,9 @@ export const Dashboard = () => {
             const { data } = await axios.get("http://localhost:5000/admins");
             setAdmins(data.admins);
         } catch (error: any) {
+            if (error.response.status === 404) {
+                setAdmins([]);
+            }
             setError(
                 error.response.data.error
                     ? error.response.data.error
@@ -36,6 +41,22 @@ export const Dashboard = () => {
         fetchAdmins();
     }, []);
 
+    const deleteAdmin = async (admin: AdminProps) => {
+        const confr = confirm(
+            `Do you really want to delete this admin named "${admin.id}" ?`
+        );
+        try {
+            if (confr.valueOf()) {
+                await axios.delete(
+                    `http://localhost:5000/delete-admin/${admin.id}`
+                );
+                fetchAdmins();
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     if (loading) {
         return <>Loading...</>;
     } else if (admins.length === 0) {
@@ -44,6 +65,7 @@ export const Dashboard = () => {
 
     return (
         <>
+            <Modal visible={modal}>Hello</Modal>
             <div className='flex items-center justify-between mb-5'>
                 <h1 className='text-2xl font-bold'>Admins</h1>
                 <button
@@ -64,17 +86,15 @@ export const Dashboard = () => {
                             { col: "Name" },
                             { col: "Role" },
                             { col: "Action" },
-                        ].map((col, index) => {
-                            return (
-                                <td
-                                    key={Math.random() * 10}
-                                    className={`px-4 py-3 text-center text-gray-200 ${
-                                        index === 3 && "text-end"
-                                    }`}>
-                                    {col.col}
-                                </td>
-                            );
-                        })}
+                        ].map((col, index) => (
+                            <td
+                                key={Math.random() * 10}
+                                className={`px-4 py-3 text-center text-gray-200 ${
+                                    index === 3 && "text-end"
+                                }`}>
+                                {col.col}
+                            </td>
+                        ))}
                     </tr>
                 </thead>
 
@@ -101,7 +121,9 @@ export const Dashboard = () => {
                                     onClick={() => navigate(`/admin/${a.id}`)}>
                                     Edit
                                 </button>
-                                <button className='border border-gray-400/30 rounded-lg p-2 hover:bg-[red]/20 hover:border-red-500/40 transition cursor-pointer active:translate-y-1 duration-100'>
+                                <button
+                                    className='border border-gray-400/30 rounded-lg p-2 hover:bg-[red]/20 hover:border-red-500/40 transition cursor-pointer active:translate-y-1 duration-100'
+                                    onClick={() => deleteAdmin(a)}>
                                     Delete
                                 </button>
                             </td>
