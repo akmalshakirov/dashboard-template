@@ -12,34 +12,36 @@ export type AdminProps = {
 };
 
 export const Dashboard = () => {
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(false);
     const [admins, setAdmins] = useState([]);
     const [error, setError] = useState<string>("");
     const [modal, setModal] = useState<boolean>(false);
     const navigate = useNavigate();
 
-    const fetchAdmins = async () => {
-        setLoading(true);
-        try {
-            const { data } = await axios.get("http://localhost:5000/admins");
-            setAdmins(data.admins);
-        } catch (error: any) {
-            if (error.response.status === 404) {
-                setAdmins([]);
-            }
-            setError(
-                error.response.data.error
-                    ? error.response.data.error
-                    : "Unknown error!"
-            );
-        } finally {
-            setLoading(false);
-        }
-    };
+    // const fetchAdmins = async () => {
+    //     setLoading(true);
+    //     try {
+    //         const { data } = await axios.get("http://localhost:5000/admins");
+    //         setAdmins(data.admins);
+    //     } catch (error: any) {
+    //         if (error.response.status === 404) {
+    //             setAdmins([]);
+    //         }
+    //         setError(
+    //             error.response.data.error
+    //                 ? error.response.data.error
+    //                 : "Unknown error!"
+    //         );
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
 
-    useEffect(() => {
-        fetchAdmins();
-    }, []);
+    // mongodb+srv://akmal:2M2uwroWGRhcM0lO@backend.lzgppvh.mongodb.net/?appName=backend
+
+    // useEffect(() => {
+    //     fetchAdmins();
+    // }, []);
 
     const deleteAdmin = async (admin: AdminProps) => {
         const confr = confirm(
@@ -50,7 +52,7 @@ export const Dashboard = () => {
                 await axios.delete(
                     `http://localhost:5000/delete-admin/${admin.id}`
                 );
-                fetchAdmins();
+                // fetchAdmins();
             }
         } catch (error) {
             console.log(error);
@@ -59,9 +61,10 @@ export const Dashboard = () => {
 
     if (loading) {
         return <>Loading...</>;
-    } else if (admins.length === 0) {
-        return <pre>{error}</pre>;
     }
+    // else if (admins.length === 0) {
+    //     return <pre>{error}</pre>;
+    // }
 
     return (
         <>
