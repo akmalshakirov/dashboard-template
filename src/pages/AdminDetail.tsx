@@ -6,11 +6,11 @@ import type { AdminProps } from "./DashboardHome";
 export const AdminDetail = () => {
     const { id } = useParams();
     const [adminData, setAdminData] = useState<AdminProps>({
-        id: Number(id),
+        _id: Number(id),
         username: "loading",
         name: "loading",
         role: "loading",
-        password: "loading",
+        password: "",
     });
     const [error, setError] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(true);
@@ -27,7 +27,6 @@ export const AdminDetail = () => {
                 name: data.admin.name,
                 role: data.admin.role,
                 username: data.admin.username,
-                password: data.admin.password,
             });
         } catch (error: any) {
             setError(
@@ -44,15 +43,24 @@ export const AdminDetail = () => {
         e.preventDefault();
         setUpdating(true);
         try {
-            await axios.put(`http://localhost:5000/admin/${id}`, {
-                username: adminData.username,
-                name: adminData.name,
-                role: adminData.role,
-                password: adminData.password,
-            });
-            navigate("/");
-        } catch (error) {
-            console.log(error);
+            const { status } = await axios.put(
+                `http://localhost:5000/admin/${id}`,
+                {
+                    username: adminData.username,
+                    name: adminData.name,
+                    role: adminData.role,
+                    password: adminData.password,
+                }
+            );
+            if (status === 200) {
+                navigate("/");
+            }
+        } catch (error: any) {
+            setError(
+                error.response.data.error
+                    ? error.response.data.error
+                    : "Unknown error!"
+            );
         } finally {
             setUpdating(false);
         }
